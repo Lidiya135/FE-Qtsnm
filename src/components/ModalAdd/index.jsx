@@ -91,7 +91,7 @@ function Add() {
                                 name="tanggal_transaksi" 
                                 onChange={onChangeHandle}
                                 className="mb-2"
-                                type="date"
+                                type="text"
                                 placeholder="01-01-2021"
                                 autoFocus
                             />

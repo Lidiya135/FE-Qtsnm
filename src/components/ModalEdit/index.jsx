@@ -1,32 +1,17 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import swal from 'sweetalert';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 
-function Edit({id}) {
+function Edit({data}) {
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-
-    const [data, setData] = useState([]);
+    let id = data.id;
     console.log(id, "id edit ")
-
-    useEffect(() => {
-        axios
-        .get(`http://localhost:3999/barang/${id}`)
-        .then ((res) => {
-          console.log("get data id succes");
-          console.log(res.data);
-          res.data && setData(res.data.data[0]);
-        })
-        .catch((err) => {
-          console.log("get data fail");
-          console.log(err);
-        });
-      }, [])
 
     //UpdateData
     const [updateData, setUpdateData] = useState({
@@ -36,7 +21,7 @@ function Edit({id}) {
         tanggal_transaksi: data.tanggal_transaksi,
         jenis_barang: data.jenis_barang
     });
-
+    // console.log(updateData)
 
     const handleChange = (e) => {
         setUpdateData({
@@ -67,6 +52,7 @@ function Edit({id}) {
                     console.log("Update data failed");
                     console.log(err);
                     swal("Warning", "Update Barang failed", "error");
+                    window.location.reload(false);
                 });
     };
 
@@ -81,14 +67,14 @@ function Edit({id}) {
                     <Modal.Title>Modal Edit Barang</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Form onSubmit={postData}>
+                    <Form>
                         <Form.Group>
                             <Form.Label>Nama Barang</Form.Label>
                             <Form.Control
                                 name="nama_barang"
                                 value={updateData.nama_barang}
                                 onChange={(e) => handleChange(e)}
-                                placeholder={data.nama_barang}
+                                // placeholder={data.nama_barang}
                                 className="mb-2"
                                 type="text"
                                 autoFocus
@@ -99,7 +85,7 @@ function Edit({id}) {
                                 name="stok"
                                 value={updateData.stok}
                                 onChange={(e) => handleChange(e)}
-                                placeholder={data.stok}
+                                // placeholder={data.stok}
                                 className="mb-2"
                                 type="number"
                                 autoFocus
@@ -110,7 +96,7 @@ function Edit({id}) {
                                 name="jumlah_terjual"
                                 value={updateData.jumlah_terjual}
                                 onChange={(e) => handleChange(e)}
-                                placeholder={data.jumlah_terjual}
+                                // placeholder={data.jumlah_terjual}
                                 className="mb-2"
                                 type="number"
                                 autoFocus
@@ -121,9 +107,9 @@ function Edit({id}) {
                                 name="tanggal_transaksi"
                                 value={updateData.tanggal_transaksi}
                                 onChange={(e) => handleChange(e)}
-                                placeholder={data.tanggal_transaksi}
+                                // placeholder={data.tanggal_transaksi}
                                 className="mb-2"
-                                type="date"
+                                type="text"
                                 autoFocus
                             />
 
@@ -132,20 +118,22 @@ function Edit({id}) {
                                 name="jenis_barang"
                                 value={updateData.jenis_barang}
                                 onChange={(e) => handleChange(e)}
-                                placeholder={data.jenis_barang}
+                                // placeholder={data.jenis_barang}
                                 className="mb-2"
                                 type="text"
                                 autoFocus
                             />
                         </Form.Group>
-
+                        <Button variant="primary" onClick={(e) => postData(e)}>
+                        Save Changes
+                    </Button>
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={postData}>
+                    <Button variant="primary" onClick={(e) => postData(e)}>
                         Save Changes
                     </Button>
                 </Modal.Footer>
