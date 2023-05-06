@@ -11,7 +11,7 @@ function Edit({data}) {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     let id = data.id;
-    console.log(id, "id edit ")
+    // console.log(id, "id edit ")
 
     //UpdateData
     const [updateData, setUpdateData] = useState({
@@ -52,7 +52,7 @@ function Edit({data}) {
                     console.log("Update data failed");
                     console.log(err);
                     swal("Warning", "Update Barang failed", "error");
-                    window.location.reload(false);
+                    // window.location.reload(false);
                 });
     };
 
@@ -73,7 +73,7 @@ function Edit({data}) {
                             <Form.Control
                                 name="nama_barang"
                                 value={updateData.nama_barang}
-                                onChange={(e) => handleChange(e)}
+                                onChange={ handleChange}
                                 // placeholder={data.nama_barang}
                                 className="mb-2"
                                 type="text"
@@ -84,7 +84,7 @@ function Edit({data}) {
                             <Form.Control
                                 name="stok"
                                 value={updateData.stok}
-                                onChange={(e) => handleChange(e)}
+                                onChange={handleChange}
                                 // placeholder={data.stok}
                                 className="mb-2"
                                 type="number"
@@ -95,7 +95,7 @@ function Edit({data}) {
                             <Form.Control
                                 name="jumlah_terjual"
                                 value={updateData.jumlah_terjual}
-                                onChange={(e) => handleChange(e)}
+                                onChange={handleChange}
                                 // placeholder={data.jumlah_terjual}
                                 className="mb-2"
                                 type="number"
@@ -106,10 +106,10 @@ function Edit({data}) {
                             <Form.Control
                                 name="tanggal_transaksi"
                                 value={updateData.tanggal_transaksi}
-                                onChange={(e) => handleChange(e)}
+                                onChange={handleChange}
                                 // placeholder={data.tanggal_transaksi}
                                 className="mb-2"
-                                type="text"
+                                type="date"
                                 autoFocus
                             />
 
@@ -117,23 +117,21 @@ function Edit({data}) {
                             <Form.Control
                                 name="jenis_barang"
                                 value={updateData.jenis_barang}
-                                onChange={(e) => handleChange(e)}
+                                onChange={ handleChange}
                                 // placeholder={data.jenis_barang}
                                 className="mb-2"
                                 type="text"
                                 autoFocus
                             />
                         </Form.Group>
-                        <Button variant="primary" onClick={(e) => postData(e)}>
-                        Save Changes
-                    </Button>
+                        
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={(e) => postData(e)}>
+                    <Button variant="primary" onClick={postData}>
                         Save Changes
                     </Button>
                 </Modal.Footer>

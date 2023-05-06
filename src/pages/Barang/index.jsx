@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
 import swal from "sweetalert";
 import axios from "axios";
-// import styles from "./barang.module.css";
 import InsertData from "../../components/ModalAdd";
 import Edit from "../../components/ModalEdit";
-// import DeleteData from "../../components/ModalDelete";
-// import Nav from "../../components/Navbar";
+import moment from "moment/moment";
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
@@ -13,10 +11,12 @@ import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import { useNavigate } from "react-router-dom";
 
 export default function Barang() {
 
     const [data, setData] = useState([]);
+    const navigate = useNavigate();
     const [inputData, setInputData] = useState({
         search: "",
     });
@@ -36,7 +36,7 @@ export default function Barang() {
 
     const getData = () => {
         axios
-            .get(`http://localhost:3999/barang?search=${inputData.search}&sortby=${sortBy}&sort=${sort}`)
+            .get(`http://localhost:3999/barang/get?search=${inputData.search}&sortby=${sortBy}&sort=${sort}`)
             .then((res) => {
                 console.log("get data succes");
                 console.log(res.data);
@@ -122,15 +122,18 @@ export default function Barang() {
                             >
                                 <h6 className=" mt-1">DESC</h6>
                             </div>
-                            
+
                             <NavDropdown title="Jenis Barang" id="navbarScrollingDropdown">
-                                <NavDropdown.Item href="#action3">Jenis Barang</NavDropdown.Item>
-                                <NavDropdown.Item href="#action4">
+                                <NavDropdown.Item onClick={() =>
+                                    navigate(`/type/pembersih`)
+                                }>pembersih</NavDropdown.Item>
+                                <NavDropdown.Item  onClick={() =>
+                                    navigate(`/type/konsumsi`)}>
                                     konsumsi
                                 </NavDropdown.Item>
                                 <NavDropdown.Divider />
                             </NavDropdown>
-                            
+
                         </Nav>
                         <Form className="d-flex">
                             <Form.Control
@@ -168,7 +171,7 @@ export default function Barang() {
                                 <td>{p.nama_barang}</td>
                                 <td>{p.stok}</td>
                                 <td>{p.jumlah_terjual}</td>
-                                <td>{p.tanggal_transaksi}</td>
+                                <td>{moment.utc(p.tanggal_transaksi).format("DD/MM/YYYY")}</td>
                                 <td>{p.jenis_barang}</td>
                                 <td>
                                     <Edit data={p} />

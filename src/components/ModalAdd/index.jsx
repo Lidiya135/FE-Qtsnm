@@ -81,7 +81,7 @@ function Add() {
                                 onChange={onChangeHandle}
                                 className="mb-2"
                                 type="number"
-                                placeholder="0"
+                                placeholder="Masukkan jumlah terjual"
                                 autoFocus
                             />
 
@@ -91,7 +91,7 @@ function Add() {
                                 name="tanggal_transaksi" 
                                 onChange={onChangeHandle}
                                 className="mb-2"
-                                type="text"
+                                type="date"
                                 placeholder="01-01-2021"
                                 autoFocus
                             />

@@ -1,8 +1,7 @@
 import React from "react";
 import {BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
 import Barang from './pages/Barang';
-// import test from './pages/test'
-import ModalEdit from "./components/ModalEdit";
+import Filter from './pages/FilterType'
 
 function App() {
   return (
@@ -10,7 +9,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Navigate to="/barang" />} replace="true" />
         <Route path="/barang" element={<Barang />} />
-        {/* <Route path="/tes" element={<Tes />} /> */}
+        <Route path="/type/:jenis_barang" element={<Filter />} />
       </Routes>
     </BrowserRouter>
    
